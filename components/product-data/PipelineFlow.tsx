@@ -129,13 +129,13 @@ function ConnectingArrow({
   const strokeColor = isComplete ? (svgStrokeMap[color] || '#2a2a3e') : '#2a2a3e';
 
   return (
-    <div className="flex items-center flex-shrink-0 mx-1">
-      <svg width="48" height="16" viewBox="0 0 48 16" fill="none">
+    <div className="flex items-center flex-shrink-0 mx-0.5">
+      <svg width="36" height="16" viewBox="0 0 36 16" fill="none">
         {isActive ? (
           <line
             x1="0"
             y1="8"
-            x2="40"
+            x2="28"
             y2="8"
             stroke={svgStrokeMap[color] || '#2a2a3e'}
             strokeWidth="2"
@@ -148,7 +148,7 @@ function ConnectingArrow({
           <line
             x1="0"
             y1="8"
-            x2="40"
+            x2="28"
             y2="8"
             stroke={strokeColor}
             strokeWidth="2"
@@ -156,7 +156,7 @@ function ConnectingArrow({
         )}
         {/* Arrowhead */}
         <polygon
-          points="38,4 46,8 38,12"
+          points="26,4 34,8 26,12"
           fill={isComplete ? (svgStrokeMap[color] || '#2a2a3e') : '#2a2a3e'}
         />
       </svg>
@@ -206,7 +206,7 @@ function StageCard({
 
   return (
     <motion.div
-      className="flex flex-col items-center gap-1.5 min-w-[90px]"
+      className="flex flex-col items-center gap-1.5 min-w-0 w-full"
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
@@ -236,7 +236,7 @@ function StageCard({
       <span className={`text-xs ${nameClasses}`}>{stage.name}</span>
 
       {/* Description */}
-      <span className="text-[10px] text-hs-muted text-center leading-tight">
+      <span className="text-[10px] text-hs-muted text-center leading-tight truncate w-full px-1">
         {stage.description}
       </span>
 
@@ -272,7 +272,7 @@ export default function PipelineFlow({
   const activeColors = activeStage ? colorMap[activeStage.color] || colorMap.blue : colorMap.blue;
 
   return (
-    <div className="bg-hs-surface/50 rounded-xl border border-hs-border p-4">
+    <div className="bg-hs-surface/50 rounded-xl border border-hs-border p-4 overflow-hidden">
       {/* Inline keyframes for the flow animation */}
       <style>{`
         @keyframes flowRight {

@@ -482,7 +482,7 @@ export default function ProductDataPage() {
       {/* Three-panel layout */}
       <div className="flex-1 flex gap-4 min-h-0">
         {/* Left Panel */}
-        <div className="w-[300px] shrink-0 flex flex-col gap-4 min-h-0">
+        <div className="w-[260px] shrink-0 flex flex-col gap-4 min-h-0">
           <CatalogCard
             catalog={catalogInfo}
             stageProgress={stageProgress}
@@ -528,7 +528,7 @@ export default function ProductDataPage() {
         </div>
 
         {/* Right Panel */}
-        <div className="w-[300px] shrink-0 flex flex-col gap-4 min-h-0 overflow-auto">
+        <div className="w-[260px] shrink-0 flex flex-col gap-4 min-h-0 overflow-auto">
           <ComplianceGauge score={overallScore} breakdown={scoreBreakdown} />
           <RiskDistribution counts={riskCounts} total={productItems.length} />
           <FieldCompleteness metrics={fieldMetrics} />
