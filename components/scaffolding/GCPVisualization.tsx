@@ -37,21 +37,24 @@ function getNodePos(id: string) {
   return node ? { x: node.x, y: node.y } : { x: 0, y: 0 };
 }
 
-// Generate a smooth curved SVG path between two points
+// Y offsets in viewBox units so lines connect to node edges, not centers
+// Node box is ~36px in a ~300px container ≈ 12 viewBox units; half = 6
+const NODE_BOTTOM_OFFSET = 7;  // exit from bottom of source node
+const NODE_TOP_OFFSET = 5;     // enter at top of target node
+
 function getConnectionPath(from: { x: number; y: number }, to: { x: number; y: number }): string {
+  const startY = from.y + NODE_BOTTOM_OFFSET;
+  const endY = to.y - NODE_TOP_OFFSET;
   const dx = Math.abs(to.x - from.x);
 
   if (dx < 5) {
-    // Nearly vertical — straight line
-    return `M ${from.x} ${from.y} L ${to.x} ${to.y}`;
+    // Nearly vertical — straight line from bottom of source to top of target
+    return `M ${from.x} ${startY} L ${to.x} ${endY}`;
   }
 
-  // Diagonal connections: use quadratic bezier that drops down from source
-  // then curves toward target for clean routing
-  const dy = to.y - from.y;
-  const cpX = from.x;
-  const cpY = from.y + dy * 0.65;
-  return `M ${from.x} ${from.y} Q ${cpX} ${cpY} ${to.x} ${to.y}`;
+  // Cubic bezier: exits vertically from source, enters vertically into target
+  const midY = (startY + endY) / 2;
+  return `M ${from.x} ${startY} C ${from.x} ${midY}, ${to.x} ${midY}, ${to.x} ${endY}`;
 }
 
 export default function GCPVisualization({ activeStep, completedSteps }: GCPVisualizationProps) {
@@ -91,10 +94,11 @@ export default function GCPVisualization({ activeStep, completedSteps }: GCPVisu
                 d={d}
                 fill="none"
                 stroke={isActive ? '#00d4aa' : '#2a2a3e'}
-                strokeWidth={isActive ? 0.4 : 0.25}
-                strokeDasharray={isActive ? 'none' : '1 1'}
+                strokeWidth={isActive ? 1.5 : 1}
+                vectorEffect="non-scaling-stroke"
+                strokeDasharray={isActive ? 'none' : '4 4'}
                 initial={{ opacity: 0.3 }}
-                animate={{ opacity: isActive ? 0.7 : 0.2 }}
+                animate={{ opacity: isActive ? 0.5 : 0.15 }}
                 transition={{ duration: 0.5 }}
               />
             );
