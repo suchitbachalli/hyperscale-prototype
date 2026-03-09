@@ -1,0 +1,10 @@
+node_modules/
+.next/
+out/
+.env
+.env.local
+*.tsbuildinfo
+next-env.d.ts
+_*.txt
+tsc_out.txt
+_nodecheck.txt
