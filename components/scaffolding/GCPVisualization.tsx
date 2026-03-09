@@ -51,7 +51,7 @@ export default function GCPVisualization({ activeStep, completedSteps }: GCPVisu
         </div>
       </div>
 
-      <div className="flex-1 relative min-h-[200px]">
+      <div className="flex-1 relative overflow-hidden">
         {/* Connection lines */}
         <svg className="absolute inset-0 w-full h-full" style={{ zIndex: 0 }}>
           {connections.map((conn) => {

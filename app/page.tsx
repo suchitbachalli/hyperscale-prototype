@@ -162,7 +162,7 @@ export default function Dashboard() {
         </div>
       </motion.div>
 
-      {/* Agent Demo Cards */}
+      {/* Agent Cards */}
       <div className="grid grid-cols-2 gap-6">
         <Link href="/scaffolding">
           <motion.div
@@ -194,7 +194,7 @@ export default function Dashboard() {
             </div>
             <div className="mt-4 flex items-center gap-2 text-sm font-semibold text-hs-teal">
               <Zap className="w-4 h-4" />
-              Launch Demo
+              Launch
             </div>
           </motion.div>
         </Link>
@@ -225,7 +225,7 @@ export default function Dashboard() {
             </div>
             <div className="mt-4 flex items-center gap-2 text-sm font-semibold text-hs-blue">
               <Zap className="w-4 h-4" />
-              Launch Demo
+              Launch
             </div>
           </motion.div>
         </Link>
@@ -262,7 +262,7 @@ export default function Dashboard() {
           </div>
           <div className="mt-4 flex items-center gap-2 text-sm font-semibold text-hs-amber">
             <Zap className="w-4 h-4" />
-            Launch Demo
+            Launch
           </div>
         </motion.div>
       </Link>

@@ -143,7 +143,7 @@ export default function ScaffoldingPage() {
           )}
           {isComplete && (
             <GlowButton onClick={reset} icon={RotateCcw} variant="amber">
-              Reset Demo
+              Reset
             </GlowButton>
           )}
           {isRunning && (
@@ -199,8 +199,8 @@ export default function ScaffoldingPage() {
                 exit={{ opacity: 0 }}
                 className="h-full flex flex-col gap-4"
               >
-                {/* Terminal — ~65% height */}
-                <div className="min-h-0" style={{ flex: '0 1 65%' }}>
+                {/* Terminal — ~45% height */}
+                <div className="min-h-0" style={{ flex: '0 1 45%' }}>
                   <TerminalOutput
                     lines={allTerminalLines}
                     visibleCount={visibleLineCount}
@@ -208,8 +208,8 @@ export default function ScaffoldingPage() {
                   />
                 </div>
 
-                {/* GCP Infrastructure Visualization — ~35% height */}
-                <div className="min-h-0" style={{ flex: '0 1 35%' }}>
+                {/* GCP Infrastructure Visualization — ~55% height */}
+                <div className="min-h-0" style={{ flex: '1 1 55%' }}>
                   <GCPVisualization
                     activeStep={activeStep}
                     completedSteps={stepStatuses.reduce<number[]>((acc, status, idx) => {
@@ -218,29 +218,6 @@ export default function ScaffoldingPage() {
                     }, [])}
                   />
                 </div>
-
-                {/* Active step detail */}
-                {stepStatuses[activeStep] === 'complete' && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="bg-hs-surface2/50 rounded-xl border border-hs-border p-4"
-                  >
-                    <h4 className="text-xs font-mono text-hs-teal uppercase tracking-wider mb-3">
-                      {scaffoldingSteps[activeStep].system} — Output
-                    </h4>
-                    <div className="grid grid-cols-2 gap-2 font-mono text-xs">
-                      {Object.entries(scaffoldingSteps[activeStep].outputs).map(([key, val]) => (
-                        <div key={key} className="flex gap-2">
-                          <span className="text-hs-muted shrink-0">{key}:</span>
-                          <span className="text-hs-text truncate">
-                            {Array.isArray(val) ? val.join(', ') : val}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
               </motion.div>
             )}
           </AnimatePresence>

@@ -397,7 +397,7 @@ export default function ProductDataPage() {
     }, cumulativeDelay);
   }, [speed, allTerminalLines]);
 
-  // ── Reset Demo ─────────────────────────────────────────────
+  // ── Reset ──────────────────────────────────────────────────
   const resetDemo = () => {
     clearTimeouts();
     setIsRunning(false);
@@ -473,7 +473,7 @@ export default function ProductDataPage() {
             </GlowButton>
           ) : (
             <GlowButton onClick={resetDemo} variant="teal" icon={RotateCcw}>
-              Reset Demo
+              Reset
             </GlowButton>
           )}
         </div>

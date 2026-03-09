@@ -204,11 +204,11 @@ export default function ChatWindow({ activeThreadId, isPlaying, onMessageVisible
         )}
       </div>
 
-      {/* Input area (disabled - demo) */}
+      {/* Input area */}
       <div className="px-4 py-3 border-t border-hs-border">
         <div className="flex items-center gap-2 px-4 py-2.5 bg-hs-surface2 rounded-lg border border-hs-border text-hs-muted text-sm">
           <MessageSquare className="w-4 h-4" />
-          <span className="italic">Demo mode — conversations are pre-scripted</span>
+          <span className="italic">Auto-updating as conversation progresses</span>
         </div>
       </div>
     </div>
