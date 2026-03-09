@@ -2,8 +2,16 @@ export interface ChatMessage {
   id: string;
   sender: 'agent' | 'customer';
   senderName?: string;
+  type?: 'text' | 'call-prompt' | 'calendar-prompt' | 'meeting-notes';
   content: string;
   timestamp?: string;
+  meetingData?: {
+    title: string;
+    date: string;
+    duration: string;
+    participants: string;
+    bullets: string[];
+  };
 }
 
 export interface ChatThread {
@@ -74,6 +82,36 @@ export const chatThreads: ChatThread[] = [
         sender: 'customer',
         senderName: 'Dave',
         content: `Live: https://reynoldsandson-API.epicordistribution.com/\nUsername UNILOG1, password P21@proC476914\nPlay is the same but with -play- in the URL.`,
+      },
+      {
+        id: 'e2b',
+        sender: 'agent',
+        type: 'call-prompt',
+        content: 'This looks like a complex ERP setup. Need help from your Unilog PM?',
+      },
+      {
+        id: 'e2c',
+        sender: 'agent',
+        type: 'calendar-prompt',
+        content: 'Schedule a call with Jen to walk through the ERP setup together.',
+      },
+      {
+        id: 'e2d',
+        sender: 'agent',
+        type: 'meeting-notes',
+        content: 'Meeting notes captured',
+        meetingData: {
+          title: 'ERP Connection Deep Dive',
+          date: 'Sep 18, 2025',
+          duration: '28 min',
+          participants: 'Jen Wilburn + Dave',
+          bullets: [
+            'P21 API endpoints confirmed for Live and Play',
+            'Service account credentials captured',
+            'Order status codes mapped: BAL, COD, HOLD, NO LIMIT',
+            '12 fields auto-populated from call insights',
+          ],
+        },
       },
       {
         id: 'e3',
@@ -203,6 +241,36 @@ export const chatThreads: ChatThread[] = [
         id: 'w1',
         sender: 'agent',
         content: `Dave, I'm reviewing your whitelisting data. You need to whitelist these Unilog IPs in your P21 network configuration:\n\n  UNILOG:  182.72.168.202, 115.160.247.186\n  CIMMESB: 34.66.86.87, 35.193.59.255\n  STAGE:   35.239.114.135, 34.68.115.243\n  PROD:    34.132.104.253, 34.135.100.59\n\nSince you're on P21 Cloud (Epicor-hosted), you may need to contact Epicor support to whitelist these IPs rather than doing it through your own firewall. Have you confirmed with Epicor that they can whitelist external IPs for your cloud instance?`,
+      },
+      {
+        id: 'w1b',
+        sender: 'agent',
+        type: 'call-prompt',
+        content: 'IP whitelisting on Epicor Cloud can be tricky. Want to loop in your PM?',
+      },
+      {
+        id: 'w1c',
+        sender: 'agent',
+        type: 'calendar-prompt',
+        content: 'Schedule a call with Jen to sort out the IP whitelisting.',
+      },
+      {
+        id: 'w1d',
+        sender: 'agent',
+        type: 'meeting-notes',
+        content: 'Meeting notes captured',
+        meetingData: {
+          title: 'IP Whitelisting Resolution',
+          date: 'Sep 22, 2025',
+          duration: '18 min',
+          participants: 'Jen Wilburn + Todd',
+          bullets: [
+            'Unilog production IP ranges provided for Epicor allow-list',
+            'Primary + failover ranges documented',
+            'Epicor support ticket submitted (EPC-2025-09-4412)',
+            '6 fields auto-populated from call insights',
+          ],
+        },
       },
       {
         id: 'w2',

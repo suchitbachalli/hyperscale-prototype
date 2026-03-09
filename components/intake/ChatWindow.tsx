@@ -1,9 +1,11 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Bot, User, Play, MessageSquare } from 'lucide-react';
+import { Bot, User, Play, MessageSquare, Phone, Video } from 'lucide-react';
 import clsx from 'clsx';
 import { chatThreads, ChatMessage } from '@/data/chat-simulation';
+import CalendarPicker from './CalendarPicker';
+import MeetingNotesCard from './MeetingNotesCard';
 
 interface ChatWindowProps {
   activeThreadId: string | null;
@@ -105,38 +107,78 @@ export default function ChatWindow({ activeThreadId, isPlaying, onMessageVisible
                 msg.sender === 'customer' && 'flex-row-reverse'
               )}
             >
-              {/* Avatar */}
-              <div className={clsx(
-                'w-8 h-8 rounded-lg flex items-center justify-center shrink-0',
-                msg.sender === 'agent' ? 'bg-hs-teal/20' : 'bg-hs-blue/20',
-              )}>
-                {msg.sender === 'agent' ? (
-                  <Bot className="w-4 h-4 text-hs-teal" />
-                ) : (
-                  <User className="w-4 h-4 text-hs-blue" />
-                )}
-              </div>
-
-              {/* Message bubble */}
-              <div className={clsx(
-                'max-w-[80%] rounded-xl px-4 py-3',
-                msg.sender === 'agent'
-                  ? 'bg-hs-surface2 border border-hs-border'
-                  : 'bg-hs-blue/10 border border-hs-blue/20',
-              )}>
-                {msg.senderName && (
-                  <p className="text-[10px] font-mono text-hs-blue mb-1">{msg.senderName}</p>
-                )}
-                {msg.sender === 'agent' && (
-                  <p className="text-[10px] font-mono text-hs-teal mb-1">HyperScaleAWC Agent</p>
-                )}
-                {msg.timestamp && (
-                  <p className="text-[10px] font-mono text-hs-amber mb-1 italic">&#x23F0; {msg.timestamp}</p>
-                )}
-                <div className="text-sm text-hs-text whitespace-pre-line leading-relaxed">
-                  {msg.content}
+              {msg.type === 'call-prompt' ? (
+                /* Call-prompt card */
+                <div className="max-w-[85%] rounded-xl p-4 bg-gradient-to-r from-hs-teal/5 to-hs-blue/5 border border-hs-teal/30">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-8 h-8 rounded-lg bg-hs-amber/20 flex items-center justify-center">
+                      <Phone className="w-4 h-4 text-hs-amber" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-hs-text">{msg.content}</p>
+                      <p className="text-[10px] text-hs-muted">Jen Wilburn — Implementation Project Manager</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-2 mt-3">
+                    <button className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-hs-teal/20 hover:bg-hs-teal/30 border border-hs-teal/30 rounded-lg text-xs font-medium text-hs-teal transition-colors">
+                      <Video className="w-3.5 h-3.5" />
+                      Join Zoom Call
+                    </button>
+                    <button className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-hs-blue/20 hover:bg-hs-blue/30 border border-hs-blue/30 rounded-lg text-xs font-medium text-hs-blue transition-colors">
+                      <MessageSquare className="w-3.5 h-3.5" />
+                      Join Teams Call
+                    </button>
+                  </div>
+                  <p className="text-[9px] text-hs-muted mt-2 text-center">jennifer.wilburn@unilogcorp.com | ext. 2847</p>
                 </div>
-              </div>
+              ) : msg.type === 'calendar-prompt' ? (
+                <div className="max-w-[85%]">
+                  <CalendarPicker onSchedule={() => {}} />
+                </div>
+              ) : msg.type === 'meeting-notes' && msg.meetingData ? (
+                <MeetingNotesCard
+                  title={msg.meetingData.title}
+                  date={msg.meetingData.date}
+                  duration={msg.meetingData.duration}
+                  participants={msg.meetingData.participants}
+                  bullets={msg.meetingData.bullets}
+                />
+              ) : (
+                <>
+                  {/* Avatar */}
+                  <div className={clsx(
+                    'w-8 h-8 rounded-lg flex items-center justify-center shrink-0',
+                    msg.sender === 'agent' ? 'bg-hs-teal/20' : 'bg-hs-blue/20',
+                  )}>
+                    {msg.sender === 'agent' ? (
+                      <Bot className="w-4 h-4 text-hs-teal" />
+                    ) : (
+                      <User className="w-4 h-4 text-hs-blue" />
+                    )}
+                  </div>
+
+                  {/* Message bubble */}
+                  <div className={clsx(
+                    'max-w-[80%] rounded-xl px-4 py-3',
+                    msg.sender === 'agent'
+                      ? 'bg-hs-surface2 border border-hs-border'
+                      : 'bg-hs-blue/10 border border-hs-blue/20',
+                  )}>
+                    {msg.senderName && (
+                      <p className="text-[10px] font-mono text-hs-blue mb-1">{msg.senderName}</p>
+                    )}
+                    {msg.sender === 'agent' && (
+                      <p className="text-[10px] font-mono text-hs-teal mb-1">HyperScaleAWC Agent</p>
+                    )}
+                    {msg.timestamp && (
+                      <p className="text-[10px] font-mono text-hs-amber mb-1 italic">&#x23F0; {msg.timestamp}</p>
+                    )}
+                    <div className="text-sm text-hs-text whitespace-pre-line leading-relaxed">
+                      {msg.content}
+                    </div>
+                  </div>
+                </>
+              )}
             </motion.div>
           ))}
         </AnimatePresence>

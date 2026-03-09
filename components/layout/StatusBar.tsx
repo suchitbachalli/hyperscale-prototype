@@ -32,6 +32,10 @@ export default function StatusBar() {
             <Bot className="w-3 h-3 text-hs-teal" />
             <span>Interface: <span className="text-hs-teal">Active</span></span>
           </div>
+          <div className="flex items-center gap-1.5">
+            <Database className="w-3 h-3 text-hs-muted" />
+            <span>PIM: <span className="text-hs-muted">Idle</span></span>
+          </div>
         </div>
       </div>
     </footer>

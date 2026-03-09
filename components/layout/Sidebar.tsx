@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Cpu, MessageSquare, Zap } from 'lucide-react';
+import { LayoutDashboard, Cpu, MessageSquare, Database, BrainCircuit } from 'lucide-react';
 import { motion } from 'framer-motion';
 import clsx from 'clsx';
 
@@ -9,6 +9,8 @@ const navItems = [
   { href: '/', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/scaffolding', label: 'Scaffolding Agent', icon: Cpu },
   { href: '/intake', label: 'Customer Interface', icon: MessageSquare },
+  { href: '/product-data', label: 'Product Data', icon: Database },
+  { href: '/meetings', label: 'Meeting Intel', icon: BrainCircuit },
 ];
 
 export default function Sidebar() {
@@ -17,14 +19,8 @@ export default function Sidebar() {
   return (
     <aside className="fixed left-0 top-0 bottom-0 w-64 bg-hs-surface border-r border-hs-border flex flex-col z-50">
       {/* Logo */}
-      <div className="p-6 flex items-center gap-3">
-        <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-hs-teal to-hs-blue flex items-center justify-center glow-teal">
-          <Zap className="w-5 h-5 text-white" />
-        </div>
-        <div>
-          <h1 className="text-lg font-bold text-white tracking-tight">HyperScale</h1>
-          <p className="text-[10px] text-hs-muted uppercase tracking-widest">AWC.ai</p>
-        </div>
+      <div className="px-5 py-5">
+        <img src="/hyperscale-logo.svg" alt="HyperScale" className="h-8" />
       </div>
 
       {/* Navigation */}
@@ -56,14 +52,15 @@ export default function Sidebar() {
         })}
       </nav>
 
-      {/* Environment Badge */}
+      {/* Partner Logos + Version */}
       <div className="p-4 border-t border-hs-border">
-        <div className="flex items-center gap-2 px-3 py-2 bg-hs-amber/10 rounded-lg border border-hs-amber/20">
-          <div className="w-2 h-2 rounded-full bg-hs-amber animate-pulse" />
-          <span className="text-xs font-mono text-hs-amber">PROTOTYPE</span>
+        <div className="flex items-center justify-center gap-4 px-3 py-3">
+          <img src="/orgill-logo.svg" alt="Orgill" className="h-6 opacity-90" />
+          <div className="w-px h-6 bg-hs-border/60" />
+          <img src="/unilog-logo.svg" alt="Unilog" className="h-7 opacity-90" />
         </div>
-        <p className="mt-3 text-[10px] text-hs-muted text-center">
-          v1.0 — Demo Environment
+        <p className="mt-2 text-[10px] text-hs-muted text-center font-mono">
+          v1.1.0 Environment
         </p>
       </div>
     </aside>

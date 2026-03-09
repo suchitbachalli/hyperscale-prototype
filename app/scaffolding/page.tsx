@@ -5,6 +5,7 @@ import { Play, RotateCcw, Zap, FastForward } from 'lucide-react';
 import SystemCard from '@/components/scaffolding/SystemCard';
 import TerminalOutput from '@/components/scaffolding/TerminalOutput';
 import ManifestView from '@/components/scaffolding/ManifestView';
+import GCPVisualization from '@/components/scaffolding/GCPVisualization';
 import GlowButton from '@/components/shared/GlowButton';
 import { scaffoldingSteps } from '@/data/scaffolding-steps';
 
@@ -198,12 +199,23 @@ export default function ScaffoldingPage() {
                 exit={{ opacity: 0 }}
                 className="h-full flex flex-col gap-4"
               >
-                {/* Terminal */}
-                <div className="flex-1 min-h-0">
+                {/* Terminal — ~65% height */}
+                <div className="min-h-0" style={{ flex: '0 1 65%' }}>
                   <TerminalOutput
                     lines={allTerminalLines}
                     visibleCount={visibleLineCount}
                     title="hyperscale-scaffolding — bash"
+                  />
+                </div>
+
+                {/* GCP Infrastructure Visualization — ~35% height */}
+                <div className="min-h-0" style={{ flex: '0 1 35%' }}>
+                  <GCPVisualization
+                    activeStep={activeStep}
+                    completedSteps={stepStatuses.reduce<number[]>((acc, status, idx) => {
+                      if (status === 'complete') acc.push(idx);
+                      return acc;
+                    }, [])}
                   />
                 </div>
 

@@ -1,13 +1,15 @@
 'use client';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import {
   Server, FileText, Clock, TrendingUp,
   Cpu, MessageSquare, ArrowRight, MapPin,
-  Building2, Calendar, Users, Globe, Zap
+  Building2, Calendar, Users, Globe, Zap, Eye, Database, BrainCircuit
 } from 'lucide-react';
 import Link from 'next/link';
 import AWCGauge from '@/components/shared/AWCGauge';
 import MetricCard from '@/components/shared/MetricCard';
+import SitePreview from '@/components/shared/SitePreview';
 
 const container = {
   hidden: { opacity: 0 },
@@ -23,6 +25,8 @@ const item = {
 };
 
 export default function Dashboard() {
+  const [showSitePreview, setShowSitePreview] = useState(false);
+
   return (
     <div className="p-8 space-y-8 bg-grid min-h-full">
       {/* Header Area */}
@@ -149,6 +153,12 @@ export default function Dashboard() {
               <Globe className="w-3 h-3" /> reynoldsandson.com
             </span>
           </div>
+          <div className="flex justify-between">
+            <span className="text-hs-muted">Meetings Captured</span>
+            <Link href="/meetings" className="text-hs-teal flex items-center gap-1 hover:underline">
+              <BrainCircuit className="w-3 h-3" /> 4 calls — 38 fields extracted
+            </Link>
+          </div>
         </div>
       </motion.div>
 
@@ -220,6 +230,77 @@ export default function Dashboard() {
           </motion.div>
         </Link>
       </div>
+
+      {/* Product Data Agent Card */}
+      <Link href="/product-data">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.75 }}
+          whileHover={{ scale: 1.005, y: -2 }}
+          className="group p-6 bg-hs-surface2/50 rounded-xl border border-hs-border hover:border-hs-amber/40 transition-all cursor-pointer"
+        >
+          <div className="flex items-start justify-between mb-4">
+            <div className="p-3 bg-hs-amber/10 rounded-xl">
+              <Database className="w-6 h-6 text-hs-amber" />
+            </div>
+            <ArrowRight className="w-5 h-5 text-hs-muted group-hover:text-hs-amber group-hover:translate-x-1 transition-all" />
+          </div>
+          <h3 className="text-lg font-semibold text-white mb-2">Product Data Agent</h3>
+          <p className="text-sm text-hs-muted mb-4">
+            Watch product data flow through the PIM pipeline — import, AI enrichment, schema.org validation, and publish. The longest pole in implementation.
+          </p>
+          <div className="flex items-center gap-4">
+            <div className="flex -space-x-1">
+              {['IM', 'EN', 'VA', 'PU'].map((s) => (
+                <div key={s} className="w-6 h-6 rounded-full bg-hs-surface border border-hs-border flex items-center justify-center text-[8px] font-mono text-hs-muted">
+                  {s}
+                </div>
+              ))}
+            </div>
+            <span className="text-xs font-mono text-hs-amber">24 items → 4 stages</span>
+          </div>
+          <div className="mt-4 flex items-center gap-2 text-sm font-semibold text-hs-amber">
+            <Zap className="w-4 h-4" />
+            Launch Demo
+          </div>
+        </motion.div>
+      </Link>
+
+      {/* Site Preview Card */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.8 }}
+        whileHover={{ scale: 1.005, y: -2 }}
+        onClick={() => setShowSitePreview(true)}
+        className="group p-6 bg-hs-surface2/50 rounded-xl border border-hs-border hover:border-hs-amber/40 transition-all cursor-pointer relative overflow-hidden"
+      >
+        <div className="absolute inset-0 bg-gradient-to-r from-hs-amber/5 via-transparent to-hs-amber/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+        <div className="relative flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <div className="p-3 bg-hs-amber/10 rounded-xl">
+              <Eye className="w-6 h-6 text-hs-amber" />
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold text-white">Preview: Reynolds & Son CX1 eCommerce Site</h3>
+              <p className="text-sm text-hs-muted mt-1">
+                See what the customer&apos;s new B2B eCommerce storefront will look like after implementation is complete.
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <span className="text-[10px] font-mono text-hs-amber px-2 py-1 bg-hs-amber/10 rounded border border-hs-amber/20">190487rey-beta.cimm2.com</span>
+            <div className="flex items-center gap-2 px-4 py-2 bg-hs-amber/10 border border-hs-amber/30 rounded-lg text-sm font-semibold text-hs-amber group-hover:bg-hs-amber/20 transition-colors">
+              <Eye className="w-4 h-4" />
+              Launch Preview
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Site Preview Modal */}
+      <SitePreview isOpen={showSitePreview} onClose={() => setShowSitePreview(false)} />
     </div>
   );
 }
