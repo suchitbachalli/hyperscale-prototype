@@ -115,12 +115,13 @@ export default function IntakePage() {
             <ChatWindow
               activeThreadId={activeThreadId}
               isPlaying={isPlaying}
+              viewMode={viewMode}
             />
           </div>
 
           {/* Right - Data Preview */}
           <div className="w-[280px] shrink-0">
-            <DataPreview activeDomain={activeDomain} />
+            <DataPreview activeDomain={activeDomain} viewMode={viewMode} />
           </div>
         </div>
       </div>

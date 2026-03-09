@@ -1,5 +1,5 @@
 'use client';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Cloud, Server, Database, Globe, Shield, Cpu, HardDrive, Network } from 'lucide-react';
 
 interface GCPVisualizationProps {
@@ -8,18 +8,18 @@ interface GCPVisualizationProps {
 }
 
 const gcpNodes = [
-  { id: 'lb', label: 'Load Balancer', icon: Globe, x: 50, y: 8, activateAt: 0 },
-  { id: 'web1', label: 'Web Server 1', icon: Server, x: 20, y: 32, activateAt: 0 },
-  { id: 'web2', label: 'Web Server 2', icon: Server, x: 50, y: 32, activateAt: 1 },
-  { id: 'api', label: 'API Gateway', icon: Network, x: 80, y: 32, activateAt: 2 },
-  { id: 'app1', label: 'App Instance', icon: Cpu, x: 15, y: 56, activateAt: 3 },
-  { id: 'app2', label: 'App Instance', icon: Cpu, x: 50, y: 56, activateAt: 4 },
-  { id: 'worker', label: 'Worker Node', icon: HardDrive, x: 85, y: 56, activateAt: 5 },
-  { id: 'db', label: 'Cloud SQL', icon: Database, x: 30, y: 80, activateAt: 6 },
-  { id: 'cache', label: 'Redis Cache', icon: Shield, x: 70, y: 80, activateAt: 7 },
+  { id: 'lb', label: 'Load Balancer', icon: Globe, x: 50, y: 10, activateAt: 0 },
+  { id: 'web1', label: 'Web Server 1', icon: Server, x: 22, y: 34, activateAt: 0 },
+  { id: 'web2', label: 'Web Server 2', icon: Server, x: 50, y: 34, activateAt: 1 },
+  { id: 'api', label: 'API Gateway', icon: Network, x: 78, y: 34, activateAt: 2 },
+  { id: 'app1', label: 'App Instance', icon: Cpu, x: 20, y: 60, activateAt: 3 },
+  { id: 'app2', label: 'App Instance', icon: Cpu, x: 50, y: 60, activateAt: 4 },
+  { id: 'worker', label: 'Worker Node', icon: HardDrive, x: 80, y: 60, activateAt: 5 },
+  { id: 'db', label: 'Cloud SQL', icon: Database, x: 32, y: 86, activateAt: 6 },
+  { id: 'cache', label: 'Redis Cache', icon: Shield, x: 68, y: 86, activateAt: 7 },
 ];
 
-const connections = [
+const connections: { from: string; to: string }[] = [
   { from: 'lb', to: 'web1' },
   { from: 'lb', to: 'web2' },
   { from: 'lb', to: 'api' },
@@ -37,6 +37,23 @@ function getNodePos(id: string) {
   return node ? { x: node.x, y: node.y } : { x: 0, y: 0 };
 }
 
+// Generate a smooth curved SVG path between two points
+function getConnectionPath(from: { x: number; y: number }, to: { x: number; y: number }): string {
+  const dx = Math.abs(to.x - from.x);
+
+  if (dx < 5) {
+    // Nearly vertical — straight line
+    return `M ${from.x} ${from.y} L ${to.x} ${to.y}`;
+  }
+
+  // Diagonal connections: use quadratic bezier that drops down from source
+  // then curves toward target for clean routing
+  const dy = to.y - from.y;
+  const cpX = from.x;
+  const cpY = from.y + dy * 0.65;
+  return `M ${from.x} ${from.y} Q ${cpX} ${cpY} ${to.x} ${to.y}`;
+}
+
 export default function GCPVisualization({ activeStep, completedSteps }: GCPVisualizationProps) {
   const maxActivated = Math.max(activeStep, ...completedSteps, -1);
 
@@ -52,8 +69,13 @@ export default function GCPVisualization({ activeStep, completedSteps }: GCPVisu
       </div>
 
       <div className="flex-1 relative overflow-hidden">
-        {/* Connection lines */}
-        <svg className="absolute inset-0 w-full h-full" style={{ zIndex: 0 }}>
+        {/* Connection lines — SVG viewBox matches percentage coordinate system */}
+        <svg
+          className="absolute inset-0 w-full h-full"
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+          style={{ zIndex: 0 }}
+        >
           {connections.map((conn) => {
             const from = getNodePos(conn.from);
             const to = getNodePos(conn.to);
@@ -61,18 +83,18 @@ export default function GCPVisualization({ activeStep, completedSteps }: GCPVisu
             const toNode = gcpNodes.find(n => n.id === conn.to);
             const isActive = fromNode && toNode && maxActivated >= fromNode.activateAt && maxActivated >= toNode.activateAt;
 
+            const d = getConnectionPath(from, to);
+
             return (
-              <motion.line
+              <motion.path
                 key={`${conn.from}-${conn.to}`}
-                x1={`${from.x}%`}
-                y1={`${from.y}%`}
-                x2={`${to.x}%`}
-                y2={`${to.y}%`}
+                d={d}
+                fill="none"
                 stroke={isActive ? '#00d4aa' : '#2a2a3e'}
-                strokeWidth={isActive ? 1.5 : 1}
-                strokeDasharray={isActive ? 'none' : '4 4'}
+                strokeWidth={isActive ? 0.4 : 0.25}
+                strokeDasharray={isActive ? 'none' : '1 1'}
                 initial={{ opacity: 0.3 }}
-                animate={{ opacity: isActive ? 0.6 : 0.2 }}
+                animate={{ opacity: isActive ? 0.7 : 0.2 }}
                 transition={{ duration: 0.5 }}
               />
             );
