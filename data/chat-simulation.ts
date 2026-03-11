@@ -36,12 +36,12 @@ export const chatThreads: ChatThread[] = [
         id: 'c2',
         sender: 'customer',
         senderName: 'Todd',
-        content: `Yes EST. My GM Dawn Sprague will be the primary day-to-day contact. Her email is dsprague@reynoldsandson.com, phone 802-505-9196. Our IT admin Dave Gilding handles the technical side — dgilding@reynoldsandson.com.`,
+        content: `Yes EST. My GM Dawn Sprague will be the primary day-to-day contact. Her email is gm@example-distributor.com, phone 555-555-0100. Our IT admin Dave Gilding handles the technical side — it-admin@example-distributor.com.`,
       },
       {
         id: 'c3',
         sender: 'agent',
-        content: `Got it! I've recorded:\n\n• Dawn Sprague — GM, Primary Contact (dsprague@reynoldsandson.com, 802-505-9196)\n• Dave Gilding — IT System Admin, Technical Contact (dgilding@reynoldsandson.com)\n• Todd Goulette — President, Management Contact\n\nShould all three of you receive weekly project updates and be copied on emails?`,
+        content: `Got it! I've recorded:\n\n• Dawn Sprague — GM, Primary Contact (gm@example-distributor.com, 555-555-0100)\n• Dave Gilding — IT System Admin, Technical Contact (it-admin@example-distributor.com)\n• Todd Goulette — President, Management Contact\n\nShould all three of you receive weekly project updates and be copied on emails?`,
       },
       {
         id: 'c4',
@@ -81,7 +81,7 @@ export const chatThreads: ChatThread[] = [
         id: 'e2',
         sender: 'customer',
         senderName: 'Dave',
-        content: `Live: https://reynoldsandson-API.epicordistribution.com/\nUsername UNILOG1, password P21@proC476914\nPlay is the same but with -play- in the URL.`,
+        content: `Live: https://example-erp-api.example.com/\nUsername [REDACTED], password [REDACTED]\nPlay is the same but with -play- in the URL.`,
       },
       {
         id: 'e2b',
@@ -116,7 +116,7 @@ export const chatThreads: ChatThread[] = [
       {
         id: 'e3',
         sender: 'agent',
-        content: `I've captured:\n\nLIVE:\n  URL: https://reynoldsandson-API.epicordistribution.com/\n  Username: UNILOG1\n\nPLAY:\n  URL: https://reynoldsandson-play-API.epicordistribution.com/\n  Username: UNILOG1\n\nBefore I save — a few P21-specific questions:\n\n1. ✅ Are the Epicor B2B Seller APIs installed and configured?\n2. ✅ Is the Scheduled Import / B2B Seller Import configured?\n3. ✅ Is the Scheduled Task created and configured?\n4. ✅ Is the Web Import Timeout configured in System Settings?\n5. Are Pricing Contracts used? (Note: if yes, each customer must have a single price contract assigned)`,
+        content: `I've captured:\n\nLIVE:\n  URL: https://example-erp-api.example.com/\n  Username: [REDACTED]\n\nPLAY:\n  URL: https://example-erp-play.example.com/\n  Username: [REDACTED]\n\nBefore I save — a few P21-specific questions:\n\n1. ✅ Are the Epicor B2B Seller APIs installed and configured?\n2. ✅ Is the Scheduled Import / B2B Seller Import configured?\n3. ✅ Is the Scheduled Task created and configured?\n4. ✅ Is the Web Import Timeout configured in System Settings?\n5. Are Pricing Contracts used? (Note: if yes, each customer must have a single price contract assigned)`,
       },
       {
         id: 'e4',
@@ -127,7 +127,7 @@ export const chatThreads: ChatThread[] = [
       {
         id: 'e5',
         sender: 'agent',
-        content: `✅ Perfect. Your ERP version is 24.2.5512.606 on Live and 25.1.5541.4 on Play — confirmed. Store Name is "Reynolds and Son, Inc." and DB names are az_108520_live and az_108520_play.\n\nFor order status, which codes should incoming eCommerce orders use?`,
+        content: `✅ Perfect. Your ERP version is 24.2.5512.606 on Live and 25.1.5541.4 on Play — confirmed. Store Name is "Reynolds and Son, Inc." and DB names are example_db_live and example_db_play.\n\nFor order status, which codes should incoming eCommerce orders use?`,
       },
       {
         id: 'e6',
@@ -240,7 +240,7 @@ export const chatThreads: ChatThread[] = [
       {
         id: 'w1',
         sender: 'agent',
-        content: `Dave, I'm reviewing your whitelisting data. You need to whitelist these Unilog IPs in your P21 network configuration:\n\n  UNILOG:  182.72.168.202, 115.160.247.186\n  CIMMESB: 34.66.86.87, 35.193.59.255\n  STAGE:   35.239.114.135, 34.68.115.243\n  PROD:    34.132.104.253, 34.135.100.59\n\nSince you're on P21 Cloud (Epicor-hosted), you may need to contact Epicor support to whitelist these IPs rather than doing it through your own firewall. Have you confirmed with Epicor that they can whitelist external IPs for your cloud instance?`,
+        content: `Dave, I'm reviewing your whitelisting data. You need to whitelist these Unilog IPs in your P21 network configuration:\n\n  UNILOG:  192.0.2.1, 192.0.2.2\n  CIMMESB: 198.51.100.1, 198.51.100.2\n  STAGE:   203.0.113.1, 203.0.113.2\n  PROD:    203.0.113.3, 203.0.113.4\n\nSince you're on P21 Cloud (Epicor-hosted), you may need to contact Epicor support to whitelist these IPs rather than doing it through your own firewall. Have you confirmed with Epicor that they can whitelist external IPs for your cloud instance?`,
       },
       {
         id: 'w1b',
@@ -330,7 +330,7 @@ export const chatThreads: ChatThread[] = [
       { id: 'rm1', sender: 'agent', content: `Dave, we need Google API keys for two services on your site:\n\n1. **reCAPTCHA v3** — protects registration and contact forms from bots\n2. **Google Maps API** — powers the store locator / branch finder\n\nDo you have a Google Cloud console account where we can generate these keys?` },
       { id: 'rm2', sender: 'customer', senderName: 'Dave', content: `I have our Google Cloud account. Give me the specifics on what to enable and I'll set it up.` },
       { id: 'rm3', sender: 'agent', content: `Here's what you need:\n\n**reCAPTCHA:**\n1. Go to google.com/recaptcha/admin\n2. Register new site → reCAPTCHA v3\n3. Add domain: reynoldsandson.com + 190487rey-beta.cimm2.com\n4. Send me the Site Key and Secret Key\n\n**Maps:**\n1. In Google Cloud Console → Enable "Maps JavaScript API" and "Geocoding API"\n2. Create an API key restricted to your domains\n3. Send me the key` },
-      { id: 'rm4', sender: 'customer', senderName: 'Dave', content: `Done. reCAPTCHA Site Key: 6LdR3xkqAAAAAMvT-2Bf8QN, Secret: 6LdR3xkqAAAAAJpK-wN4c. Maps key: AIzaSyB7R3dWk4xNp.` },
+      { id: 'rm4', sender: 'customer', senderName: 'Dave', content: `Done. reCAPTCHA Site Key: RECAPTCHA_SITE_KEY_HERE, Secret: RECAPTCHA_SECRET_HERE. Maps key: GOOGLE_MAPS_KEY_HERE.` },
       { id: 'rm5', sender: 'agent', content: `✅ Both keys captured and validated:\n  reCAPTCHA v3: Active ✓\n  Maps JavaScript API: Active ✓\n  Geocoding API: Active ✓\n\nreCAPTCHA & Maps complete!` },
     ],
   },
@@ -385,10 +385,10 @@ export const chatThreads: ChatThread[] = [
     title: 'Payment Gateway',
     messages: [
       { id: 'pg1', sender: 'agent', content: `Since you're on P21, you'll be using WorldPay (Element) for payment processing. I need your merchant credentials:\n\n• Account ID\n• Acceptor ID\n• Account Token\n• Terminal ID (if applicable)\n• Transaction type: AUTH or AUTH+CAPTURE?` },
-      { id: 'pg2', sender: 'customer', senderName: 'Dave', content: `Account ID: 1043904, Acceptor ID: 529000203169. We use AUTH only — capture happens when we ship from P21. Terminal ID is the same as Account ID.` },
+      { id: 'pg2', sender: 'customer', senderName: 'Dave', content: `Account ID: XXXXXXX, Acceptor ID: XXXXXXXXXXXX. We use AUTH only — capture happens when we ship from P21. Terminal ID is the same as Account ID.` },
       { id: 'pg3', sender: 'agent', content: `Got it. Which card types should we accept?\n\nCurrently configured in your WorldPay account:\n  Mastercard (10) ✅\n  AMEX (9) ✅\n  Visa (4) ✅\n  Discover (8) — do you want this enabled?` },
       { id: 'pg4', sender: 'customer', senderName: 'Dave', content: `Yes add Discover too.` },
-      { id: 'pg5', sender: 'agent', content: `✅ Payment Gateway configured:\n  Provider: WorldPay/Element\n  Mode: AUTH only (capture on shipment)\n  Cards: Visa, Mastercard, AMEX, Discover\n  Account ID: 1043904\n\nPayment Gateway complete!` },
+      { id: 'pg5', sender: 'agent', content: `✅ Payment Gateway configured:\n  Provider: WorldPay/Element\n  Mode: AUTH only (capture on shipment)\n  Cards: Visa, Mastercard, AMEX, Discover\n  Account ID: XXXXXXX\n\nPayment Gateway complete!` },
     ],
   },
   {
@@ -493,7 +493,7 @@ export const chatThreads: ChatThread[] = [
     title: 'QA Testing Data',
     messages: [
       { id: 'qa1', sender: 'agent', content: `Dave, I need test data for QA. Can you provide:\n\n• 3 test customer accounts (one retail, one on-account, one tax-exempt)\n• A WorldPay test card number\n• Test P21 credentials for the Play environment\n• A few product SKUs that have multiple UOMs` },
-      { id: 'qa2', sender: 'customer', senderName: 'Dave', content: `Test customers:\n  Retail: WEBRETAIL01 / password Test123!\n  On-account: REYNOLDS-TEST / password Test123!\n  Tax-exempt: REYNOLDS-EXEMPT / password Test123!\n\nWorldPay test card: 4111111111111111\nPlay environment uses same creds as live but on the play URL.\n\nMulti-UOM SKUs: RS-TAPE-001, RS-FITTING-205, RS-HOSE-100` },
+      { id: 'qa2', sender: 'customer', senderName: 'Dave', content: `Test customers:\n  Retail: WEBRETAIL01 / password [REDACTED]\n  On-account: REYNOLDS-TEST / password [REDACTED]\n  Tax-exempt: REYNOLDS-EXEMPT / password [REDACTED]\n\nWorldPay test card: 4111111111111111\nPlay environment uses the play URL.\n\nMulti-UOM SKUs: RS-TAPE-001, RS-FITTING-205, RS-HOSE-100` },
       { id: 'qa3', sender: 'agent', content: `✅ QA Testing Data captured:\n  3 test accounts configured\n  Payment test card: 4111...1111\n  Play environment: Accessible\n  Multi-UOM test SKUs: 3 identified\n\nI'll use these during the QA cycle. QA Testing complete!` },
     ],
   },
@@ -591,10 +591,10 @@ export const liveDataPreview = {
     version: '24.2.5512.606',
     hosting: 'Cloud (Epicor)',
     live: {
-      baseUrl: 'https://reynoldsandson-API.epicordistribution.com/',
-      username: 'UNILOG1',
+      baseUrl: 'https://example-erp-api.example.com/',
+      username: 'API_USER',
       storeName: 'Reynolds and Son, Inc.',
-      dbName: 'az_108520_live',
+      dbName: 'example_db_live',
     },
     orderStatuses: ['BAL', 'COD', 'HOLD', 'NO LIMIT'],
     pricingContracts: true,
@@ -603,7 +603,7 @@ export const liveDataPreview = {
     name: 'WorldPay',
     transactionType: 'AUTH',
     cards: ['Mastercard (10)', 'AMEX (9)', 'Visa (4)'],
-    live: { accountId: '1043904', acceptorId: '529000203169' },
+    live: { accountId: 'XXXXXXX', acceptorId: 'XXXXXXXXXXXX' },
   },
   warehouse: {
     locations: [{
